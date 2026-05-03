@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRONFORGE Academia — Forje Seu Melhor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:       #E01515;
+      --red-dark:  #A80F0F;
+      --red-glow:  rgba(224,21,21,0.35);
+      --black:     #0A0A0A;
+      --black2:    #111111;
+      --black3:    #1A1A1A;
+      --gray:      #2C2C2C;
+      --gray-lt:   #888888;
+      --white:     #F5F5F5;
+      --white2:    #CCCCCC;
+      --wa-green:  #25D366;
+      --wa-dark:   #128C7E;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-sub:     'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ─── UTILITIES ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-sub);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+    .red { color: var(--red); }
+
+    /* ─── BUTTONS ─── */
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--wa-green);
+      color: #fff;
+      font-family: var(--font-sub);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    }
+    .btn-wa::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,211,102,0.4); }
+    .btn-wa:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-sub);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: 2px solid var(--white2);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 18px 0;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(224,21,21,0.2);
+      transition: padding 0.3s;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .logo span { color: var(--red); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-sub);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-wa {
+      background: var(--red);
+      color: #fff !important;
+      padding: 8px 20px;
+      transition: background 0.2s !important;
+    }
+    .nav-wa:hover { background: var(--red-dark) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); display: block; transition: 0.3s; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 100%),
+        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--black), transparent);
+    }
+    /* animated red accent line */
+    .hero-line {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: var(--red);
+      box-shadow: 0 0 30px var(--red-glow), 0 0 60px var(--red-glow);
+      animation: lineGrow 1.2s ease forwards;
+    }
+    @keyframes lineGrow {
+      from { transform: scaleY(0); transform-origin: top; }
+      to   { transform: scaleY(1); transform-origin: top; }
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s ease forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+    .hero-title .stroke {
+      -webkit-text-stroke: 2px var(--white);
+      color: transparent;
+    }
+    .hero-sub {
+      font-family: var(--font-sub);
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      color: var(--white2);
+      max-width: 520px;
+      margin-bottom: 40px;
+      line-height: 1.55;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s ease forwards;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.9s ease forwards;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0;
+      animation: fadeUp 0.7s 1.1s ease forwards;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--red);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      margin-top: 4px;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SOBRE ─── */
+    #sobre {
+      padding: 110px 0;
+      background: var(--black2);
+      position: relative;
+    }
+    #sobre::before {
+      content: 'FORGE';
+      position: absolute;
+      right: -30px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 18vw;
+      color: rgba(255,255,255,0.02);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .sobre-img {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .sobre-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.4s;
+    }
+    .sobre-img:hover img { filter: grayscale(0%); }
+    .sobre-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--red);
+      transform: translate(12px, 12px);
+      pointer-events: none;
+    }
+    .sobre-text .section-title { margin-bottom: 24px; }
+    .sobre-text p {
+      color: var(--white2);
+      line-height: 1.75;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .sobre-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .badge {
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(224,21,21,0.4);
+      background: rgba(224,21,21,0.07);
+      padding: 8px 16px;
+    }
+
+    /* ─── BENEFÍCIOS ─── */
+    #beneficios {
+      padding: 110px 0;
+      background: var(--black);
+    }
+    .beneficios-header { text-align: center; margin-bottom: 70px; }
+    .beneficios-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .bcard {
+      background: var(--black3);
+      padding: 48px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .bcard::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.35s;
+    }
+    .bcard:hover { background: var(--black2); }
+    .bcard:hover::before { transform: scaleX(1); }
+    .bcard-icon {
+      width: 64px; height: 64px;
+      background: rgba(224,21,21,0.1);
+      border: 1px solid rgba(224,21,21,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.8rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .bcard:hover .bcard-icon { background: rgba(224,21,21,0.2); border-color: var(--red); }
+    .bcard h3 {
+      font-family: var(--font-sub);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .bcard p { font-size: 0.9rem; color: var(--gray-lt); line-height: 1.6; }
+
+    /* ─── PLANOS ─── */
+    #planos {
+      padding: 110px 0;
+      background: var(--black3);
+      position: relative;
+      overflow: hidden;
+    }
+    #planos::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(224,21,21,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .planos-header { text-align: center; margin-bottom: 60px; }
+    .planos-header p { color: var(--gray-lt); font-size: 1.05rem; margin-top: 16px; }
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .plan {
+      background: var(--black2);
+      padding: 48px 36px 40px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .plan:hover { transform: translateY(-8px); }
+    .plan.featured {
+      background: var(--black);
+      border: 1px solid var(--red);
+      z-index: 1;
+    }
+    .plan-badge {
+      position: absolute;
+      top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--red);
+      font-family: var(--font-sub);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 5px 18px;
+    }
+    .plan-name {
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      margin-bottom: 20px;
+    }
+    .plan-price {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .plan-price sup { font-size: 1.5rem; vertical-align: super; }
+    .plan-period {
+      font-family: var(--font-sub);
+      font-size: 0.85rem;
+      color: var(--gray-lt);
+      margin-bottom: 32px;
+    }
+    .plan-features { list-style: none; margin-bottom: 36px; }
+    .plan-features li {
+      font-size: 0.95rem;
+      color: var(--white2);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .plan-features li::before {
+      content: '✓';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .plan .btn-wa { width: 100%; justify-content: center; }
+
+    /* ─── DEPOIMENTOS ─── */
+    #depoimentos {
+      padding: 110px 0;
+      background: var(--black);
+    }
+    .depo-header { text-align: center; margin-bottom: 60px; }
+    .depo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .depo {
+      background: var(--black3);
+      padding: 40px 32px;
+      position: relative;
+    }
+    .depo-quote {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--red);
+      line-height: 0.5;
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+    .depo p {
+      font-size: 0.97rem;
+      color: var(--white2);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .depo-author { display: flex; align-items: center; gap: 14px; }
+    .depo-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      object-fit: cover;
+      background: var(--gray);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--red);
+    }
+    .depo-name {
+      font-family: var(--font-sub);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .depo-role { font-size: 0.8rem; color: var(--gray-lt); margin-top: 2px; }
+    .stars { color: var(--red); font-size: 0.9rem; margin-bottom: 4px; }
+
+    /* ─── GALERIA ─── */
+    #galeria {
+      padding: 110px 0;
+      background: var(--black2);
+    }
+    .galeria-header { text-align: center; margin-bottom: 50px; }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 4px;
+    }
+    .galeria-grid img {
+      width: 100%; height: 260px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(30%) brightness(0.85);
+      transition: filter 0.4s, transform 0.4s;
+    }
+    .galeria-grid img:hover { filter: grayscale(0%) brightness(1); transform: scale(1.02); }
+    .galeria-grid .wide { grid-column: span 2; }
+    .galeria-grid .wide img { height: 260px; }
+
+    /* ─── CTA ─── */
+    #cta {
+      padding: 130px 0;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(224,21,21,0.12) 0%, transparent 50%),
+        linear-gradient(315deg, rgba(224,21,21,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-inner .section-title { font-size: clamp(2.8rem, 7vw, 5.5rem); margin-bottom: 24px; }
+    .cta-inner p {
+      font-size: 1.15rem;
+      color: var(--white2);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+    }
+    .cta-inner .btn-wa {
+      font-size: 1.25rem;
+      padding: 20px 52px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black2);
+      border-top: 1px solid rgba(224,21,21,0.2);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo { font-size: 2rem; display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.9rem; color: var(--gray-lt); line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a,
+    .footer-col ul li {
+      font-size: 0.9rem;
+      color: var(--white2);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .footer-col ul li a:hover { color: var(--red); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--gray-lt);
+    }
+
+    /* ─── WA FLOAT ─── */
+    .wa-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      transition: gap 0.3s;
+    }
+    .wa-float-label {
+      background: var(--black2);
+      color: var(--white);
+      font-family: var(--font-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: max-width 0.4s, padding 0.4s;
+    }
+    .wa-float:hover .wa-float-label { max-width: 200px; }
+    .wa-btn-circle {
+      width: 60px; height: 60px;
+      background: var(--wa-green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 30px rgba(37,211,102,0.5);
+      animation: pulse 2.5s ease infinite;
+      text-decoration: none;
+    }
+    .wa-btn-circle svg { width: 30px; height: 30px; fill: #fff; }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 6px 40px rgba(37,211,102,0.75); }
+    }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: var(--black2);
+        padding: 24px;
+        gap: 20px;
+        border-top: 1px solid rgba(224,21,21,0.2);
+      }
+      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .sobre-img { order: -1; aspect-ratio: 16/9; }
+      .sobre-img::after { display: none; }
+      .beneficios-grid { grid-template-columns: 1fr 1fr; }
+      .planos-grid { grid-template-columns: 1fr; }
+      .depo-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: 1fr 1fr; }
+      .galeria-grid .wide { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+    }
+    @media (max-width: 540px) {
+      .beneficios-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: 1fr; }
+      .galeria-grid .wide { grid-column: span 1; }
+      .hero-ctas { flex-direction: column; }
+      .btn-wa, .btn-outline { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="nav">
+    <div class="container">
+      <a href="#hero" class="logo">IRON<span>FORGE</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#beneficios">Benefícios</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="https://wa.me/5591999999999?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20IRONFORGE." target="_blank" class="nav-wa">Começar agora</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag">Academia Premium • Belém, PA</span>
+        <h1 class="hero-title">
+          FORJE SEU<br>
+          <span class="stroke">MELHOR</span><br>
+          <span class="red">EU.</span>
+        </h1>
+        <p class="hero-sub">
+          Pare de adiar. Equipamentos de ponta, personal trainers especializados e um ambiente criado para extrair o máximo de você. Resultados reais. Começa hoje.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn-wa" href="https://wa.me/5591999999999?text=Olá!%20Quero%20começar%20na%20IRONFORGE!" target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Fale no WhatsApp
+          </a>
+          <a class="btn-outline" href="#planos">Ver planos</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">+2K</div>
+            <div class="stat-label">Alunos transformados</div>
+          </div>
+          <div>
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Anos de experiência</div>
+          </div>
+          <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Aprovação dos alunos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SOBRE ─── -->
+  <section id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-img reveal">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Interior da IRONFORGE" loading="lazy" />
+        </div>
+        <div class="sobre-text reveal">
+          <span class="section-tag">Sobre nós</span>
+          <h2 class="section-title">NÃO SOMOS<br>SÓ UMA<br><span class="red">ACADEMIA.</span></h2>
+          <p>A IRONFORGE nasceu com uma missão simples: entregar resultados reais para pessoas reais. Em mais de 10 anos, treinamos mais de 2.000 alunos que transformaram seus corpos, sua saúde e sua autoconfiança.</p>
+          <p>Aqui você encontra equipamentos de última geração, personal trainers com formação reconhecida, avaliação física periódica e um ambiente projetado para maximizar seu desempenho — com climatização completa e espaço amplo.</p>
+          <div class="sobre-badges">
+            <span class="badge">Equipamentos top</span>
+            <span class="badge">+10 anos de mercado</span>
+            <span class="badge">Personal incluído</span>
+            <span class="badge">Avaliação física</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BENEFÍCIOS ─── -->
+  <section id="beneficios">
+    <div class="container">
+      <div class="beneficios-header reveal">
+        <span class="section-tag">Por que a IRONFORGE</span>
+        <h2 class="section-title">TUDO QUE VOCÊ<br>PRECISA PARA <span class="red">EVOLUIR.</span></h2>
+      </div>
+      <div class="beneficios-grid">
+        <div class="bcard reveal">
+          <div class="bcard-icon">🏋️</div>
+          <h3>Equipamentos Modernos</h3>
+          <p>Aparelhos premium de musculação e cardio com manutenção semanal. Sempre em perfeito estado.</p>
+        </div>
+        <div class="bcard reveal">
+          <div class="bcard-icon">👊</div>
+          <h3>Personal Trainers</h3>
+          <p>Profissionais certificados e experientes que personalizam cada treino para o seu objetivo.</p>
+        </div>
+        <div class="bcard reveal">
+          <div class="bcard-icon">❄️</div>
+          <h3>Ambiente Climatizado</h3>
+          <p>Treine com conforto total. Toda a academia com ar-condicionado e ventilação adequada.</p>
+        </div>
+        <div class="bcard reveal">
+          <div class="bcard-icon">📈</div>
+          <h3>Resultados Comprovados</h3>
+          <p>Metodologia testada com mais de 2.000 alunos. Acompanhamento de progresso real e mensurável.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLANOS ─── -->
+  <section id="planos">
+    <div class="container">
+      <div class="planos-header reveal">
+        <span class="section-tag">Planos e preços</span>
+        <h2 class="section-title">ESCOLHA SEU<br><span class="red">PLANO.</span></h2>
+        <p>Sem taxa de matrícula. Sem letras miúdas. Comece quando quiser.</p>
+      </div>
+      <div class="planos-grid">
+        <!-- MENSAL -->
+        <div class="plan reveal">
+          <div class="plan-name">Plano Mensal</div>
+          <div class="plan-price"><sup>R$</sup>149</div>
+          <div class="plan-period">/mês — renovação mensal</div>
+          <ul class="plan-features">
+            <li>Acesso livre à academia</li>
+            <li>Musculação e cardio</li>
+            <li>Avaliação física inicial</li>
+            <li>Vestiário completo</li>
+            <li>App de treinos</li>
+          </ul>
+          <a class="btn-wa" href="https://wa.me/5591999999999?text=Quero%20o%20Plano%20Mensal%20na%20IRONFORGE!" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Quero esse plano
+          </a>
+        </div>
+        <!-- TRIMESTRAL (DESTAQUE) -->
+        <div class="plan featured reveal">
+          <div class="plan-badge">Mais popular</div>
+          <div class="plan-name">Plano Trimestral</div>
+          <div class="plan-price red"><sup>R$</sup>119</div>
+          <div class="plan-period">/mês — cobrado 3x R$119</div>
+          <ul class="plan-features">
+            <li>Tudo do Mensal</li>
+            <li>Personal trainer 2x/semana</li>
+            <li>Dieta e nutrição básica</li>
+            <li>Avaliação física mensal</li>
+            <li>Acesso às aulas coletivas</li>
+          </ul>
+          <a class="btn-wa" href="https://wa.me/5591999999999?text=Quero%20o%20Plano%20Trimestral%20na%20IRONFORGE!" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Quero esse plano
+          </a>
+        </div>
+        <!-- ANUAL -->
+        <div class="plan reveal">
+          <div class="plan-name">Plano Anual</div>
+          <div class="plan-price"><sup>R$</sup>89</div>
+          <div class="plan-period">/mês — cobrado anualmente</div>
+          <ul class="plan-features">
+            <li>Tudo do Trimestral</li>
+            <li>Personal trainer ilimitado</li>
+            <li>Plano nutricional completo</li>
+            <li>Análise corporal avançada</li>
+            <li>1 kit IRONFORGE exclusivo</li>
+          </ul>
+          <a class="btn-wa" href="https://wa.me/5591999999999?text=Quero%20o%20Plano%20Anual%20na%20IRONFORGE!" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Quero esse plano
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DEPOIMENTOS ─── -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="depo-header reveal">
+        <span class="section-tag">Resultados reais</span>
+        <h2 class="section-title">QUEM TREINA<br>AQUI <span class="red">COMPROVA.</span></h2>
+      </div>
+      <div class="depo-grid">
+        <div class="depo reveal">
+          <div class="depo-quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p>Em 3 meses na IRONFORGE perdi 12 kg e finalmente me sinto bem comigo mesmo. Os personal trainers são incríveis, sempre atentos e motivadores. Melhor investimento que já fiz na minha vida.</p>
+          <div class="depo-author">
+            <div class="depo-avatar">R</div>
+            <div>
+              <div class="depo-name">Rafael Souza</div>
+              <div class="depo-role">Aluno há 8 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="depo reveal">
+          <div class="depo-quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p>Já fui em outras academias da cidade mas a IRONFORGE é outro nível. Os equipamentos são modernos, o espaço é limpo e os profissionais realmente sabem o que fazem. Emagreci e ganhei massa ao mesmo tempo.</p>
+          <div class="depo-author">
+            <div class="depo-avatar">A</div>
+            <div>
+              <div class="depo-name">Amanda Ferreira</div>
+              <div class="depo-role">Aluna há 1 ano</div>
+            </div>
+          </div>
+        </div>
+        <div class="depo reveal">
+          <div class="depo-quote">"</div>
+          <div class="stars">★★★★★</div>
+          <p>Comecei sem nunca ter pisado numa academia e hoje treino 5x por semana sem esforço. O ambiente é acolhedor, sem julgamento. O resultado veio mais rápido do que eu esperava. Recomendo demais!</p>
+          <div class="depo-author">
+            <div class="depo-avatar">C</div>
+            <div>
+              <div class="depo-name">Carlos Mendonça</div>
+              <div class="depo-role">Aluno há 6 meses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GALERIA ─── -->
+  <section id="galeria">
+    <div class="container">
+      <div class="galeria-header reveal">
+        <span class="section-tag">Nossa estrutura</span>
+        <h2 class="section-title">FEITO PARA<br><span class="red">VENCEDORES.</span></h2>
+      </div>
+      <div class="galeria-grid reveal">
+        <div class="wide">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Área de musculação" loading="lazy" />
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=600&q=80" alt="Equipamentos" loading="lazy" />
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80" alt="Treinamento" loading="lazy" />
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Cardio" loading="lazy" />
+        </div>
+        <div class="wide">
+          <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=900&q=80" alt="Alunos treinando" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <span class="section-tag">Não espere amanhã</span>
+        <h2 class="section-title">SUA MELHOR<br>VERSÃO<br><span class="red">COMEÇA AGORA.</span></h2>
+        <p>Cada dia que passa é um dia a menos para ser quem você quer ser. Dê o primeiro passo — fale com a gente pelo WhatsApp e comece hoje mesmo, sem burocracia.</p>
+        <a class="btn-wa" href="https://wa.me/5591999999999?text=Olá!%20Quero%20começar%20a%20treinar%20na%20IRONFORGE%20hoje!" target="_blank">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Falar no WhatsApp agora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo">IRON<span>FORGE</span></span>
+          <p>Academia premium focada em resultados reais. Equipamentos, profissionais e ambiente de alto nível para quem leva o treino a sério.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Informações</h4>
+          <ul>
+            <li><span>📍</span> Rua das Flores, 1024 — Belém, PA</li>
+            <li><span>📞</span> (91) 9 9999-9999</li>
+            <li>
+              <a href="https://wa.me/5591999999999" target="_blank">
+                <span>💬</span> WhatsApp
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Horários</h4>
+          <ul>
+            <li>Segunda a Sexta: 5h – 23h</li>
+            <li>Sábado: 6h – 20h</li>
+            <li>Domingo: 8h – 14h</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 IRONFORGE Academia. Todos os direitos reservados.</span>
+        <span>Feito com 🔥 para quem não para.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── WA FLOAT ─── -->
+  <div class="wa-float">
+    <div class="wa-float-label">Fale conosco agora!</div>
+    <a class="wa-btn-circle" href="https://wa.me/5591999999999?text=Olá!%20Vi%20o%20site%20e%20quero%20saber%20mais%20sobre%20a%20IRONFORGE!" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    // ─── HAMBURGER ───
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // ─── SCROLL REVEAL ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          // stagger siblings
+          const siblings = [...e.target.parentElement.querySelectorAll('.reveal')];
+          const idx = siblings.indexOf(e.target);
+          setTimeout(() => e.target.classList.add('visible'), idx * 100);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ─── NAV SHRINK ───
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').style.padding = window.scrollY > 60 ? '10px 0' : '18px 0';
+    });
+  </script>
+</body>
+</html>
